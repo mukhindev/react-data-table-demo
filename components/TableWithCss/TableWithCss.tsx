@@ -1,24 +1,14 @@
+import { OrderItemModel } from "../../src/types";
 import DataTable, { ColumnDef } from "@mukhindev/react-data-table";
-import styles from "./MyComponent.module.css";
+import styles from "./TableWithCss.module.css";
 
-type ProductModel = {
-  id: number;
-  name: string;
-};
+export default function TableWithCss() {
+  const data: OrderItemModel[] = [
+    { id: 1, product: { id: 7, name: "Potato" }, price: 10000 },
+    { id: 2, product: { id: 5, name: "Banana" }, price: 32000 },
+    { id: 3, product: { id: 9, name: "Orange" }, price: 42500 },
+  ];
 
-type OrderItemModel = {
-  id: number;
-  product: ProductModel;
-  price: number;
-};
-
-const data: OrderItemModel[] = [
-  { id: 1, product: { id: 7, name: "Potato" }, price: 10000 },
-  { id: 2, product: { id: 5, name: "Banana" }, price: 32000 },
-  { id: 3, product: { id: 9, name: "Orange" }, price: 42500 },
-];
-
-function MyComponent() {
   const defs: ColumnDef<OrderItemModel>[] = [
     {
       title: "ID",
@@ -31,7 +21,9 @@ function MyComponent() {
     {
       title: "Price",
       render: (item) => `${item.price.toLocaleString("ru")} ₽`,
-      cellProps: { style: { textAlign: "right" } },
+      cellProps: {
+        style: { textAlign: "right" },
+      },
     },
     {
       title: "Random",
@@ -43,5 +35,3 @@ function MyComponent() {
 
   return <DataTable className={styles.DataTable} data={data} defs={defs} />;
 }
-
-export default MyComponent;
